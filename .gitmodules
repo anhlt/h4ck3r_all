@@ -1,6 +1,3 @@
-[submodule "webserver/h3ck3r"]
-	path = webserver/h3ck3r
-	url = git@github.com:anhlt/h3ck3rn3w.git
 [submodule "h4ck3r_client"]
 	path = h4ck3r_client
 	url = git@github.com:anhlt/h4ck3r_client.git
