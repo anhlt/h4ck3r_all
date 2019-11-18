@@ -4,3 +4,6 @@
 [submodule "h4ck3r_client"]
 	path = h4ck3r_client
 	url = git@github.com:anhlt/h4ck3r_client.git
+[submodule "h4ck3r_server"]
+	path = h4ck3r_server
+	url = git@github.com:anhlt/h3ck3rn3w.git
