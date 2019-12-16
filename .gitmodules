@@ -4,3 +4,6 @@
 [submodule "h4ck3r_server"]
 	path = h4ck3r_server
 	url = git@github.com:anhlt/h3ck3rn3w.git
+[submodule "h4ck3r_js"]
+	path = h4ck3r_js
+	url = git@github.com:anhlt/h4ck3r_js.git
