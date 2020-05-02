@@ -7,3 +7,6 @@
 [submodule "h4ck3r_js"]
 	path = h4ck3r_js
 	url = git@github.com:anhlt/h4ck3r_js.git
+[submodule "h3cke4_alexa"]
+	path = h3cke4_alexa
+	url = git@github.com:anhlt/h3cke4_alexa.git

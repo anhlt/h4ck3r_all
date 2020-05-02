@@ -1,15 +1,7 @@
 version: '3'
-services:
 
-  mosquitto:
-    container_name: hacker_iot_mosquitto
-    restart: always
-    image: eclipse-mosquitto
-    ports:
-      - "1883:1883"
-      - "9001:9001"
-    networks:
-      - hackeriot-nw
+
+services:
 
   mysql:
     container_name: hacker_iot_mysql
@@ -28,15 +20,6 @@ services:
     networks:
       - hackeriot-nw
 
-  memcached:
-      container_name: hacker_iot_memcached
-      restart: always
-      image: memcached:latest
-      ports:
-        - "11211:11211"
-      networks:
-        - hackeriot-nw
-
   redis:
     container_name: hacker_iot_redis
     restart: always
@@ -47,83 +30,7 @@ services:
       - hackeriot-nw
 
 
-  zookeeper:
-    image: confluentinc/cp-zookeeper:5.1.0
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 2181
-      ZOOKEEPER_TICK_TIME: 2000
-    restart: always
-    ports:
-      - "2181:2181"
-    networks:
-      - hackeriot-nw
-
-  kafka:
-    image: confluentinc/cp-kafka:5.1.0
-    hostname: kafka
-    depends_on:
-      - zookeeper
-    ports:
-      - "9092:9092"
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: kafka
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9094,PLAINTEXT_HOST://localhost:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_CREATE_TOPICS: "Timeline:1:1,SearchUpdate:1:1:compact,Alert:1:1"
-      KAFKA_JMX_PORT: 39999
-    restart: always
-    networks:
-      - hackeriot-nw
-
-  kafka2:
-    image: confluentinc/cp-kafka:5.1.0
-    hostname: kafka2
-    depends_on:
-      - zookeeper
-    ports:
-      - "9093:9093"
-    environment:
-      KAFKA_ADVERTISED_HOST_NAME: kafka2
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9094,PLAINTEXT_HOST://localhost:9093
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_JMX_PORT: 39999
-      KAFKA_CREATE_TOPICS: "Timeline:1:1,SearchUpdate:1:1:compact,Alert:1:1"
-    restart: always
-    networks:
-      - hackeriot-nw
-
-  kafka-manager:
-    image: sheepkiller/kafka-manager
-    ports:
-      - 9999:9000
-    environment:
-      ZK_HOSTS: "zookeeper:2181"
-    networks:
-      - hackeriot-nw
-
-
-  schemaregistry:
-    image: confluentinc/cp-schema-registry:5.2.1
-    restart: always
-    depends_on:
-      - zookeeper
-    environment:
-      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: "zookeeper:2181"
-      SCHEMA_REGISTRY_HOST_NAME: schemaregistry
-      SCHEMA_REGISTRY_LISTENERS: "http://0.0.0.0:8081"
-    ports:
-      - 8081:8081
-    networks:
-      - hackeriot-nw
-
 volumes:
-
   my-build-cached:
   my-build-target:
   elastic-datavolume:
